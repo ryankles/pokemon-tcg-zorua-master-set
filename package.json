@@ -1,0 +1,46 @@
+{
+  "name": "pokemon-tcg-zorua-master-set",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:seed": "tsx prisma/seed.ts",
+    "db:seed": "npm run prisma:migrate && npm run prisma:seed"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryankles/pokemon-tcg-zorua-master-set.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ryankles/pokemon-tcg-zorua-master-set/issues"
+  },
+  "homepage": "https://github.com/ryankles/pokemon-tcg-zorua-master-set#readme",
+  "dependencies": {
+    "@prisma/client": "^5.22.0",
+    "@types/node": "^25.6.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9.39.4",
+    "eslint-config-next": "^16.2.3",
+    "next": "^16.2.3",
+    "postcss": "^8.4.41",
+    "prisma": "^5.22.0",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "recharts": "^3.8.1",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^6.0.2"
+  },
+  "devDependencies": {
+    "tsx": "^4.21.0"
+  }
+}
