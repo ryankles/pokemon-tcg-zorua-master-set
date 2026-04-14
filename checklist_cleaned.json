@@ -2,44 +2,14 @@
   {
     "pokemon": "Zorua",
     "card_name": "Zorua",
-    "set": "Black & White",
-    "number": "70 / 114"
+    "set": "BREAKThrough",
+    "number": "89 / 162"
   },
   {
     "pokemon": "Zorua",
     "card_name": "Zorua",
-    "set": "McDonald's Promos 2011",
-    "number": "9 / 12"
-  },
-  {
-    "pokemon": "Zorua",
-    "card_name": "Zorua",
-    "set": "Emerging Powers",
-    "number": "66 / 98"
-  },
-  {
-    "pokemon": "Zorua",
-    "card_name": "Zorua",
-    "set": "Dark Explorers",
-    "number": "69 / 108"
-  },
-  {
-    "pokemon": "Zorua",
-    "card_name": "Zorua",
-    "set": "Dark Explorers",
-    "number": "70 / 108"
-  },
-  {
-    "pokemon": "Zorua",
-    "card_name": "Zorua",
-    "set": "Legendary Treasures",
-    "number": "89 / 113"
-  },
-  {
-    "pokemon": "Zorua",
-    "card_name": "Zorua",
-    "set": "BW Promo",
-    "number": "BW12"
+    "set": "BREAKThrough",
+    "number": "90 / 162"
   },
   {
     "pokemon": "Zorua",
@@ -56,44 +26,32 @@
   {
     "pokemon": "Zorua",
     "card_name": "Zorua",
-    "set": "XY",
-    "number": "72 / 146"
+    "set": "BW Promo",
+    "number": "BW12"
   },
   {
     "pokemon": "Zorua",
     "card_name": "Zorua",
-    "set": "BREAKThrough",
-    "number": "89 / 162"
+    "set": "Black & White",
+    "number": "70 / 114"
   },
   {
     "pokemon": "Zorua",
     "card_name": "Zorua",
-    "set": "BREAKThrough",
-    "number": "90 / 162"
+    "set": "Dark Explorers",
+    "number": "69 / 108"
   },
   {
     "pokemon": "Zorua",
     "card_name": "Zorua",
-    "set": "Shining Legends",
-    "number": "52 / 73"
+    "set": "Dark Explorers",
+    "number": "70 / 108"
   },
   {
     "pokemon": "Zorua",
     "card_name": "Zorua",
-    "set": "Team Up",
-    "number": "90 / 181"
-  },
-  {
-    "pokemon": "Zorua",
-    "card_name": "Zorua",
-    "set": "Hidden Fates",
-    "number": "SV25 / SV94"
-  },
-  {
-    "pokemon": "Zorua",
-    "card_name": "Zorua",
-    "set": "SM Promo",
-    "number": "SM83"
+    "set": "Emerging Powers",
+    "number": "66 / 98"
   },
   {
     "pokemon": "Zorua",
@@ -110,6 +68,48 @@
   {
     "pokemon": "Zorua",
     "card_name": "Zorua",
+    "set": "Hidden Fates",
+    "number": "SV25 / SV94"
+  },
+  {
+    "pokemon": "Zorua",
+    "card_name": "Zorua",
+    "set": "Journey Together",
+    "number": "97 / 159"
+  },
+  {
+    "pokemon": "Zorua",
+    "card_name": "Zorua",
+    "set": "Legendary Treasures",
+    "number": "89 / 113"
+  },
+  {
+    "pokemon": "Zorua",
+    "card_name": "Zorua",
+    "set": "McDonald's Promos 2011",
+    "number": "9 / 12"
+  },
+  {
+    "pokemon": "Zorua",
+    "card_name": "Zorua",
+    "set": "SM Promo",
+    "number": "SM83"
+  },
+  {
+    "pokemon": "Zorua",
+    "card_name": "Zorua",
+    "set": "SV Promo",
+    "number": "189"
+  },
+  {
+    "pokemon": "Zorua",
+    "card_name": "Zorua",
+    "set": "Shining Legends",
+    "number": "52 / 73"
+  },
+  {
+    "pokemon": "Zorua",
+    "card_name": "Zorua",
     "set": "Shrouded Fable",
     "number": "31 / 64"
   },
@@ -121,9 +121,15 @@
   },
   {
     "pokemon": "Zorua",
-    "card_name": "N's Zorua",
-    "set": "Journey Together",
-    "number": "97 / 159"
+    "card_name": "Zorua",
+    "set": "Team Up",
+    "number": "90 / 181"
+  },
+  {
+    "pokemon": "Zorua",
+    "card_name": "Zorua",
+    "set": "XY",
+    "number": "72 / 146"
   },
   {
     "pokemon": "Hisuian Zorua",
@@ -241,7 +247,7 @@
   },
   {
     "pokemon": "Zoroark",
-    "card_name": "Zoroark SM Promo",
+    "card_name": "Zoroark",
     "set": "SM Promo",
     "number": "SM89"
   },
