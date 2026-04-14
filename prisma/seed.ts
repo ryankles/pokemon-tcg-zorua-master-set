@@ -11,26 +11,64 @@ interface CardData {
   number: string;
 }
 
-// Map Pokemon names to lowercase for image URLs
-function getPokemonImageUrl(pokemonName: string): string {
-  // Map common variations to proper API names
-  const nameMap: { [key: string]: string } = {
-    'Zorua': 'zorua',
-    'Zoroark': 'zoroark',
-    'Hisuian Zorua': 'zonua-hisuian',
+// Generate card image URL using Pokemon TCG official imagery
+function getCardImageUrl(setName: string, cardNumber: string, pokemonName: string): string {
+  // Try to use official Pokemon TCG card images
+  // Format: https://images.pokemontcg.io/setid/cardnumber.png
+  
+  // Map set names to set IDs (common ones)
+  const setIdMap: { [key: string]: string } = {
+    'Black & White': 'bw1',
+    'Emerging Powers': 'bw3',
+    'Dark Explorers': 'bw4',
+    'Dragons Exalted': 'bw5',
+    'Boundaries Crossed': 'bw6',
+    'Plasma Freeze': 'bw7',
+    'Plasma Blast': 'bw8',
+    'Legendary Treasures': 'bw9',
+    'XY': 'xy1',
+    'Flashfire': 'xy2',
+    'Furious Fists': 'xy3',
+    'Phantom Forces': 'xy4',
+    'Primal Clash': 'xy5',
+    'Roaring Skies': 'xy6',
+    'Ancient Origins': 'xy7',
+    'Breakpoint': 'xy8',
+    'Breakthrough': 'xy9',
+    'Generations': 'g1',
+    'Sun & Moon': 'sm1',
+    'Guardians Rising': 'sm2',
+    'Burning Shadows': 'sm3',
+    'Crimson Invasion': 'sm4',
+    'Ultra Prism': 'sm5',
+    'Forbidden Light': 'sm6',
+    'Celestial Storm': 'sm7',
+    'Lost Thunder': 'sm8',
+    'Team Up': 'sm9',
+    'Unbroken Bonds': 'sm10',
+    'Shining Fates': 'ss2pt',
+    'Sword & Shield': 'ss1',
+    'Rebel Clash': 'ss2',
+    'Darkness Ablaze': 'ss3',
+    'Vivid Voltage': 'ss4',
+    'Shining Fates': 'ss25',
+    'Battle Styles': 'ss5',
+    'Chilling Reign': 'ss6',
+    'Evolving Skies': 'ss7',
+    'Fusion Strike': 'ss8',
+    'Brilliant Stars': 'sv1',
+    'Scarlet & Violet': 'sv1',
+    'Paldean Fates': 'sv45pt',
   };
-
-  const apiName = nameMap[pokemonName] || pokemonName.toLowerCase().replace(/\s+/g, '-');
-  return `https://raw.githubusercontent.com/PokeAPI/sprites/master/pokemon/other/official-artwork/${apiName.includes('hisuian') ? '923' : apiName === 'zorua' ? '570' : '571'}.png`;
-}
-
-// Generate a card image URL - using placeholder for now
-function getCardImageUrl(setName: string, cardNumber: string): string {
-  // Using a placeholder card image service
-  const encodedSet = encodeURIComponent(setName);
-  const encodedNumber = encodeURIComponent(cardNumber);
-  // Return placeholder with set and number info
-  return `https://via.placeholder.com/250x350/7c3aed/FFFFFF?text=${encodedSet}%0A${encodedNumber}`;
+  
+  // Extract set ID or use generic fallback
+  const setId = setIdMap[setName] || setName.toLowerCase().replace(/\s+/g, '-');
+  
+  // Extract card number (just the first part before slash)
+  const cardNum = cardNumber.split('/')[0].trim();
+  
+  // Use official Pokemon TCG image API
+  return `https://images.pokemontcg.io/${setId}/${cardNum}.png`;
 }
 
 async function main() {
@@ -54,7 +92,7 @@ async function main() {
           cardName: card.card_name,
           setName: card.set,
           cardNumber: card.number,
-          imageUrl: getCardImageUrl(card.set, card.number),
+          imageUrl: getCardImageUrl(card.set, card.number, card.pokemon),
           owned: false,
         },
       });
