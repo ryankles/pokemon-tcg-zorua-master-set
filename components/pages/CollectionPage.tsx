@@ -8,6 +8,7 @@ import {
   SortOptions,
 } from '@/components/cards/CollectionFilters';
 import { EmptyState } from '@/components/cards/StatCard';
+import { useToast } from '@/lib/toastContext';
 
 interface CollectionPageProps {
   initialCards: Card[];
@@ -25,6 +26,7 @@ export default function CollectionPage({
   const [filters, setFilters] = useState<any>({});
   const [sort, setSort] = useState('cardName');
   const [order, setOrder] = useState('asc');
+  const { addToast } = useToast();
 
   const applyFilters = useCallback(
     async (newFilters: any) => {
@@ -40,11 +42,21 @@ export default function CollectionPage({
       params.append('sort', sort);
       params.append('order', order);
 
-      const response = await fetch(`/api/cards?${params}`);
-      const data = await response.json();
-      setCards(data.cards);
+      try {
+        const response = await fetch(`/api/cards?${params}`);
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || 'Failed to fetch cards');
+        }
+        const data = await response.json();
+        setCards(data.cards);
+      } catch (error) {
+        const message = error instanceof Error ? error.message : 'Failed to fetch cards';
+        addToast('error', message);
+        console.error('Error fetching cards:', error);
+      }
     },
-    [sort, order]
+    [sort, order, addToast]
   );
 
   const handleSort = useCallback(
@@ -62,11 +74,21 @@ export default function CollectionPage({
       params.append('sort', newSort);
       params.append('order', newOrder);
 
-      const response = await fetch(`/api/cards?${params}`);
-      const data = await response.json();
-      setCards(data.cards);
+      try {
+        const response = await fetch(`/api/cards?${params}`);
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || 'Failed to fetch cards');
+        }
+        const data = await response.json();
+        setCards(data.cards);
+      } catch (error) {
+        const message = error instanceof Error ? error.message : 'Failed to fetch cards';
+        addToast('error', message);
+        console.error('Error fetching cards:', error);
+      }
     },
-    [filters]
+    [filters, addToast]
   );
 
   const handleCardUpdate = async (id: string, updateData: any) => {
@@ -77,13 +99,29 @@ export default function CollectionPage({
         body: JSON.stringify(updateData),
       });
 
-      if (!response.ok) throw new Error('Failed to update card');
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to update card');
+      }
 
-      // Update local state
+      const updatedCard = await response.json();
+
+      // Update local state with actual response
       setCards((prev) =>
-        prev.map((c) => (c.id === id ? { ...c, ...updateData } : c))
+        prev.map((c) => (c.id === id ? updatedCard : c))
       );
+
+      // Show success message
+      if (updateData.owned !== undefined) {
+        addToast('success', updateData.owned ? 'Card marked as owned' : 'Card marked as missing');
+      } else if (updateData.favorite !== undefined) {
+        addToast('success', updateData.favorite ? 'Added to favorites' : 'Removed from favorites');
+      } else {
+        addToast('success', 'Card updated successfully');
+      }
     } catch (error) {
+      const message = error instanceof Error ? error.message : 'Failed to update card';
+      addToast('error', message);
       console.error('Error updating card:', error);
     }
   };

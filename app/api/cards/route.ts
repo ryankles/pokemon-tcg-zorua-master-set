@@ -1,5 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import {
+  validatePrice,
+  validateSort,
+  validateOrder,
+  validatePagination,
+  ValidationError,
+} from '@/lib/validation';
 
 export async function GET(request: NextRequest) {
   try {
@@ -15,6 +22,21 @@ export async function GET(request: NextRequest) {
     const skip = parseInt(searchParams.get('skip') || '0');
     const take = parseInt(searchParams.get('take') || '100');
 
+    // Validate inputs
+    try {
+      validateSort(sort);
+      validateOrder(order);
+      validatePagination(skip, take);
+
+      if (minPrice !== null) validatePrice(minPrice);
+      if (maxPrice !== null) validatePrice(maxPrice);
+    } catch (err) {
+      if (err instanceof ValidationError) {
+        return NextResponse.json({ error: err.message }, { status: 400 });
+      }
+      throw err;
+    }
+
     const where: any = {};
 
     if (pokemon) where.pokemon = pokemon;
@@ -29,7 +51,7 @@ export async function GET(request: NextRequest) {
     }
 
     const orderBy: any = {};
-    orderBy[sort === 'cardName' ? 'cardName' : sort] = order;
+    orderBy[sort] = order;
 
     const [cards, total] = await Promise.all([
       prisma.card.findMany({

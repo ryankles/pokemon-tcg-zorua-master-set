@@ -150,7 +150,7 @@ Fetch cards with filtering, sorting, and pagination.
 ```json
 {
   "cards": [...],
-  "total": 68,
+  "total": 60,
   "skip": 0,
   "take": 100
 }

@@ -4,7 +4,8 @@ import { Card } from '@prisma/client';
 import { StatCard, ProgressCard, EmptyState } from '@/components/cards/StatCard';
 import { CompletionRing, OwnedMissingChart, ValueByPokemonChart, ValueBySetChart } from '@/components/charts/Charts';
 import { CardGrid, CardTile } from '@/components/cards/CardTile';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
+import { useToast } from '@/lib/toastContext';
 
 interface DashboardProps {
   data: {
@@ -21,6 +22,42 @@ interface DashboardProps {
 export default function Dashboard({ data }: DashboardProps) {
   const [favorites, setFavorites] = useState(data.favorites);
   const [recent, setRecent] = useState(data.recentCards);
+  const { addToast } = useToast();
+
+  // FIX #1: Calculate real analytics from owned cards instead of hardcoded data
+  const analytics = useMemo(() => {
+    const ownedCards = data.recentCards.filter((c) => c.owned);
+
+    // Group by pokemon
+    const byPokemon: { [key: string]: number } = {};
+    ownedCards.forEach((card) => {
+      byPokemon[card.pokemon] = (byPokemon[card.pokemon] || 0) + (card.currentPrice || 0);
+    });
+
+    const valueByPokemon = Object.entries(byPokemon)
+      .map(([pokemon, value]) => ({
+        pokemon,
+        value,
+      }))
+      .sort((a, b) => b.value - a.value)
+      .slice(0, 10);
+
+    // Group by set
+    const bySet: { [key: string]: number } = {};
+    ownedCards.forEach((card) => {
+      bySet[card.setName] = (bySet[card.setName] || 0) + (card.currentPrice || 0);
+    });
+
+    const valueBySet = Object.entries(bySet)
+      .map(([set, value]) => ({
+        set,
+        value,
+      }))
+      .sort((a, b) => b.value - a.value)
+      .slice(0, 10);
+
+    return { valueByPokemon, valueBySet };
+  }, [data.recentCards]);
 
   const handleCardUpdate = async (id: string, updateData: any) => {
     try {
@@ -30,17 +67,36 @@ export default function Dashboard({ data }: DashboardProps) {
         body: JSON.stringify(updateData),
       });
 
-      if (!response.ok) throw new Error('Failed to update card');
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to update card');
+      }
 
-      // Update local state
+      // FIX #4: Get actual updated card from API response
+      const updatedCard = await response.json();
+
       if (updateData.favorite !== undefined) {
-        setFavorites((prev) =>
-          updateData.favorite
-            ? [...prev, { ...prev[0], id }]
-            : prev.filter((c) => c.id !== id)
-        );
+        if (updateData.favorite) {
+          // Add favorite with actual card data
+          setFavorites((prev) => [...prev, updatedCard]);
+          addToast('success', 'Added to favorites');
+        } else {
+          // Remove favorite
+          setFavorites((prev) => prev.filter((c) => c.id !== id));
+          addToast('success', 'Removed from favorites');
+        }
+      }
+
+      if (updateData.owned !== undefined) {
+        if (updateData.owned) {
+          addToast('success', 'Marked as owned');
+        } else {
+          addToast('success', 'Marked as missing');
+        }
       }
     } catch (error) {
+      const message = error instanceof Error ? error.message : 'Failed to update card';
+      addToast('error', message);
       console.error('Error updating card:', error);
     }
   };
@@ -49,16 +105,6 @@ export default function Dashboard({ data }: DashboardProps) {
     data.totalCards > 0
       ? ((data.totalCards - data.ownedCards) / data.totalCards) * data.totalValue
       : 0;
-
-  const valueByPokemonData = [
-    { pokemon: 'Zoroark', value: data.totalValue * 0.6 },
-    { pokemon: 'Zorua', value: data.totalValue * 0.4 },
-  ];
-
-  const valueBySetData = [
-    { set: 'Lost Origin', value: data.totalValue * 0.25 },
-    { set: 'Shrouded Fable', value: data.totalValue * 0.2 },
-  ];
 
   return (
     <div className="min-h-screen bg-dark-950">
@@ -120,10 +166,10 @@ export default function Dashboard({ data }: DashboardProps) {
           </div>
         </div>
 
-        {/* Value Charts */}
+        {/* Value Charts - Now with real data */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
-          <ValueByPokemonChart data={valueByPokemonData} />
-          <ValueBySetChart data={valueBySetData} />
+          <ValueByPokemonChart data={analytics.valueByPokemon} />
+          <ValueBySetChart data={analytics.valueBySet} />
         </div>
 
         {/* Recent & Favorites */}

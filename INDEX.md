@@ -38,7 +38,7 @@ Read these in order based on your needs:
 | Page | URL | What It Does |
 |------|-----|--------------|
 | **Dashboard** | `/` | Overview with charts and stats |
-| **Collection** | `/collection` | Browse all 68 cards with filters |
+| **Collection** | `/collection` | Browse all 60 English cards with filters |
 | **Missing Cards** | `/missing` | Wishlist for cards you need |
 | **Analytics** | `/portfolio` | Deep dive into your collection |
 | **Card Details** | `/card/[id]` | Full card view with editing |
@@ -52,7 +52,7 @@ Read these in order based on your needs:
 - ✅ Favorites and wishlist system
 - ✅ Responsive mobile design
 - ✅ Dark mode aesthetic
-- ✅ SQLite database with 68 cards pre-loaded
+- ✅ SQLite database with 60 English cards pre-loaded
 
 ---
 
@@ -135,7 +135,7 @@ npm run lint         # Check code quality
 - Favorite cards showcase
 
 ### Collection (`/collection`)
-- 68 cards displayed in responsive grid
+- 60 English cards displayed in responsive grid
 - Image-first design with card images
 - Filter by: Pokémon, status, set, price range
 - Sort by: name, price, set, recently acquired, priority
@@ -169,7 +169,7 @@ npm run lint         # Check code quality
 ## 💾 Database
 
 ### Pre-loaded Data
-- 68 Zorua-line cards from your checklist
+- 60 English Zorua-line cards from your checklist
 - Ready for you to add prices and images
 - All set names and card numbers pre-populated
 
@@ -265,7 +265,7 @@ POST /api/cards/{card-id}/history {"price": 25.50}
 ### 🗄️ Database
 - SQLite with Prisma ORM
 - 2 models (Card, PriceHistory)
-- 68 cards pre-seeded
+- 60 English cards pre-seeded
 - Full-text search ready
 
 ---

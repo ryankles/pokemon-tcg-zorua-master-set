@@ -20,7 +20,7 @@ Your full-stack Next.js application has been successfully created with **all req
 ### 🗄️ Database
 - ✅ `prisma/schema.prisma` - Complete data model
 - ✅ `lib/prisma.ts` - Prisma client singleton
-- ✅ `scripts/seed.js` - Database seed with 68 cards
+- ✅ `scripts/seed.js` - Database seed with 60 cards (English only)
 
 ### 🎨 Styles
 - ✅ `app/globals.css` - Global Tailwind styles
@@ -151,7 +151,7 @@ Your full-stack Next.js application has been successfully created with **all req
 ✅ Card model with all fields
 ✅ PriceHistory relationship model
 ✅ Indexes for fast queries
-✅ 68 cards from your checklist pre-seeded
+✅ 61 English cards from your checklist pre-seeded (removed 5 Japanese BW Promos + 2 more Japanese sets)
 ✅ Timestamps (createdAt, updatedAt)
 ```
 
@@ -202,7 +202,7 @@ Your full-stack Next.js application has been successfully created with **all req
 ## 📊 Data Included
 
 ### Pre-seeded Database
-- **Total Cards**: 68 Zorua-line cards
+- **Total Cards**: 60 English Zorua-line cards
 - **Pokémon**: Zorua, Zoroark, and variants
 - **Sets**: 30+ different Pokémon TCG sets
 - **Data**: Card name, set, number, type

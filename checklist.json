@@ -26,24 +26,12 @@
   {
     "pokemon": "Zoroark",
     "card_name": "Zoroark",
-    "set": "BW Promos",
-    "number": "BW19"
-  },
-  {
-    "pokemon": "Zoroark",
-    "card_name": "Zoroark",
-    "set": "BW Promos",
-    "number": "BW9"
-  },
-  {
-    "pokemon": "Zoroark",
-    "card_name": "Zoroark",
     "set": "Black White",
     "number": "71 / 114"
   },
   {
     "pokemon": "Zoroark",
-    "card_name": "Zoroark VSTAR",
+    "card_name": "Hisuian Zoroark VSTAR",
     "set": "Crown Zenith",
     "number": "GG56 / GG70"
   },
@@ -109,31 +97,31 @@
   },
   {
     "pokemon": "Zoroark",
-    "card_name": "Zoroark V",
+    "card_name": "Hisuian Zoroark V",
     "set": "Lost Origin",
     "number": "146 / 196"
   },
   {
     "pokemon": "Zoroark",
-    "card_name": "Zoroark VSTAR",
+    "card_name": "Hisuian Zoroark VSTAR",
     "set": "Lost Origin",
     "number": "147 / 196"
   },
   {
     "pokemon": "Zoroark",
-    "card_name": "Zoroark VSTAR",
+    "card_name": "Hisuian Zoroark VSTAR",
     "set": "Lost Origin",
     "number": "203 / 196"
   },
   {
     "pokemon": "Zoroark",
-    "card_name": "Zoroark VSTAR",
+    "card_name": "Hisuian Zoroark VSTAR",
     "set": "Lost Origin",
     "number": "213 / 196"
   },
   {
     "pokemon": "Zoroark",
-    "card_name": "Zoroark",
+    "card_name": "Hisuian Zoroark",
     "set": "Lost Origin",
     "number": "76 / 196"
   },
@@ -157,13 +145,13 @@
   },
   {
     "pokemon": "Zoroark",
-    "card_name": "Zoroark V",
+    "card_name": "Hisuian Zoroark V",
     "set": "SWSH Promos",
     "number": "SWSH297"
   },
   {
     "pokemon": "Zoroark",
-    "card_name": "Zoroark VSTAR",
+    "card_name": "Hisuian Zoroark VSTAR",
     "set": "SWSH Promos",
     "number": "SWSH298"
   },
@@ -184,12 +172,6 @@
     "card_name": "Zoroark",
     "set": "Shrouded Fable",
     "number": "32 / 64"
-  },
-  {
-    "pokemon": "Zoroark",
-    "card_name": "Greninja &  Zoroark GX",
-    "set": "Tag All Stars",
-    "number": "223 / 173"
   },
   {
     "pokemon": "Zoroark",
@@ -260,24 +242,6 @@
   {
     "pokemon": "Zorua",
     "card_name": "Zorua",
-    "set": "BW Promo",
-    "number": "116 / BW-P"
-  },
-  {
-    "pokemon": "Zorua",
-    "card_name": "Zorua",
-    "set": "BW Promo",
-    "number": "32 / BW-P"
-  },
-  {
-    "pokemon": "Zorua",
-    "card_name": "Zorua",
-    "set": "BW Promos",
-    "number": "BW12"
-  },
-  {
-    "pokemon": "Zorua",
-    "card_name": "Zorua",
     "set": "Black White",
     "number": "70 / 114"
   },
@@ -326,12 +290,6 @@
   {
     "pokemon": "Zorua",
     "card_name": "Zorua",
-    "set": "Journey Friends",
-    "number": "9 / 9"
-  },
-  {
-    "pokemon": "Zorua",
-    "card_name": "Zorua",
     "set": "Journey Together",
     "number": "97 / 159"
   },
@@ -343,15 +301,9 @@
   },
   {
     "pokemon": "Zorua",
-    "card_name": "Zorua",
+    "card_name": "Hisuian Zorua",
     "set": "Lost Origin",
     "number": "75 / 196"
-  },
-  {
-    "pokemon": "Zorua",
-    "card_name": "Zorua",
-    "set": "McDonalds Promos 2011",
-    "number": "9 / 12"
   },
   {
     "pokemon": "Zorua",

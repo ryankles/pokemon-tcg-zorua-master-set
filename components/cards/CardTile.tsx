@@ -59,13 +59,13 @@ export function CardTile({
     <Link href={`/card/${id}`}>
       <div className="group relative bg-dark-800/50 rounded-lg border border-dark-700 overflow-hidden card-shadow-hover h-full flex flex-col cursor-pointer">
         {/* Image Container */}
-        <div className="relative bg-dark-900 aspect-square overflow-hidden">
+        <div className="relative bg-dark-900 aspect-square overflow-hidden flex items-center justify-center">
           {imageUrl ? (
             <Image
               src={imageUrl}
               alt={cardName}
               fill
-              className="object-cover group-hover:scale-105 transition-transform duration-300"
+              className="object-contain group-hover:scale-105 transition-transform duration-300"
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-dark-700 to-dark-900">
@@ -95,7 +95,8 @@ export function CardTile({
             onClick={toggleFavorite}
             className="absolute top-2 left-2 text-xl opacity-0 group-hover:opacity-100 transition-opacity"
             disabled={isLoading}
-            suppressHydrationWarning
+            aria-label={favorite ? 'Remove from favorites' : 'Add to favorites'}
+            title={favorite ? 'Remove from favorites' : 'Add to favorites'}
           >
             {favorite ? '⭐' : '☆'}
           </button>
@@ -125,7 +126,8 @@ export function CardTile({
           <button
             onClick={toggleOwned}
             disabled={isLoading}
-            suppressHydrationWarning
+            aria-label={owned ? 'Mark as missing' : 'Mark as owned'}
+            title={owned ? 'Mark as missing' : 'Mark as owned'}
             className={`px-3 py-1 rounded text-xs font-semibold transition-colors ${
               owned
                 ? 'bg-green-600/30 text-green-300 hover:bg-green-600/50'

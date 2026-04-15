@@ -352,7 +352,10 @@ export default function CardDetailPage({
                     <XAxis dataKey="date" stroke="#6b7280" />
                     <YAxis stroke="#6b7280" />
                     <Tooltip
-                      formatter={(value) => `$${value.toFixed(2)}`}
+                      formatter={(value) => {
+                        if (typeof value === 'number') return `$${value.toFixed(2)}`;
+                        return String(value);
+                      }}
                       contentStyle={{
                         backgroundColor: '#1f2937',
                         border: '1px solid #374151',

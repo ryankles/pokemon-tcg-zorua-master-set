@@ -147,7 +147,7 @@ App (Root Layout)
     │   ├── SortOptions
     │   ├── View mode toggle
     │   └── CardGrid
-    │       └── CardTile (x68 or filtered)
+    │       └── CardTile (x60 English cards or filtered)
     │
     ├── Missing (/missing)
     │   ├── StatCard (x4)

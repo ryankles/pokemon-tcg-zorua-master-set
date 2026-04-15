@@ -3,26 +3,49 @@
 import { Card } from '@prisma/client';
 import { CardTile, CardGrid } from '@/components/cards/CardTile';
 import { StatCard, EmptyState } from '@/components/cards/StatCard';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useState } from 'react';
+import { useToast } from '@/lib/toastContext';
 
 interface MissingPageProps {
   cards: Card[];
 }
 
-export default function MissingPage({ cards }: MissingPageProps) {
+export default function MissingPage({ cards: initialCards }: MissingPageProps) {
+  // FIX #5: Use local state instead of window.location.reload()
+  const [cards, setCards] = useState(initialCards);
+  const { addToast } = useToast();
+
   const handleCardUpdate = useCallback(async (id: string, updateData: any) => {
     try {
-      await fetch(`/api/cards/${id}`, {
+      const response = await fetch(`/api/cards/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updateData),
       });
-      // Refresh page
-      window.location.reload();
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to update card');
+      }
+
+      const updatedCard = await response.json();
+
+      // FIX #5: Update local state smoothly
+      if (updateData.owned) {
+        // Remove from missing list if marked as owned
+        setCards((prev) => prev.filter((c) => c.id !== id));
+        addToast('success', 'Card marked as owned!');
+      } else {
+        // Update card data if unmarking ownership
+        setCards((prev) => prev.map((c) => (c.id === id ? updatedCard : c)));
+        addToast('success', 'Card marked as missing');
+      }
     } catch (error) {
+      const message = error instanceof Error ? error.message : 'Failed to update card';
+      addToast('error', message);
       console.error('Error updating card:', error);
     }
-  }, []);
+  }, [addToast]);
 
   const stats = useMemo(() => {
     const totalMissing = cards.length;
@@ -118,7 +141,7 @@ export default function MissingPage({ cards }: MissingPageProps) {
             <div>
               <h2 className="text-2xl font-bold mb-6">⭐ High Priority Missing</h2>
               <CardGrid>
-                {stats.highPriority.slice(0, 4).map((card) => (
+                {stats.highPriority.map((card) => (
                   <CardTile
                     key={card.id}
                     id={card.id}
@@ -162,9 +185,9 @@ export default function MissingPage({ cards }: MissingPageProps) {
           )}
 
           {/* All Missing Cards */}
-          <div>
-            <h2 className="text-2xl font-bold mb-6">All Missing Cards</h2>
-            {cards.length > 0 ? (
+          {cards.length > 0 && (
+            <div>
+              <h2 className="text-2xl font-bold mb-6">📋 All Missing Cards</h2>
               <CardGrid>
                 {cards.map((card) => (
                   <CardTile
@@ -182,13 +205,18 @@ export default function MissingPage({ cards }: MissingPageProps) {
                   />
                 ))}
               </CardGrid>
-            ) : (
+            </div>
+          )}
+
+          {/* Empty State */}
+          {cards.length === 0 && (
+            <div className="text-center py-12">
               <EmptyState
                 title="🎉 Collection Complete!"
                 description="You own all cards in the Zorua-line master set"
               />
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </section>
     </div>

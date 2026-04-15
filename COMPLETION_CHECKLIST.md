@@ -24,7 +24,7 @@
 
 #### ✅ Data Seeding
 - [x] Seed script created (scripts/seed.js)
-- [x] All 68 Zorua-line cards from checklist.json imported
+- [x] All 60 English Zorua-line cards from checklist.json imported (removed Japanese sets)
 - [x] Automatic database creation on first seed
 - [x] Can re-seed anytime to reset
 
@@ -215,7 +215,7 @@
 - [x] PriceHistory model for tracking
 - [x] Relationships configured
 - [x] Indexes for performance
-- [x] 68 cards pre-seeded
+- [x] 60 English cards pre-seeded
 - [x] Seed script for data import
 - [x] Default values configured
 
@@ -299,7 +299,7 @@
 | **Documentation Files** | 7 |
 | **Total Files** | 35+ |
 | **Lines of Code** | ~2,500+ |
-| **Pre-seeded Cards** | 68 |
+| **Pre-seeded Cards** | 60 |
 
 ---
 
@@ -315,7 +315,7 @@ npm install && npm run db:push && npm run db:seed && npm run dev
 - **Database Editor**: http://localhost:5555 (run `npm run db:studio`)
 
 ### Data Already Included
-- All 68 Zorua-line cards from checklist.json
+- All 60 English Zorua-line cards from checklist.json
 - Ready to add prices, images, ownership data
 
 ---

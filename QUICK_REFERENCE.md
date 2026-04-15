@@ -9,7 +9,7 @@ npm run dev                  # Start dev server on port 3000
 # 💾 Database
 npm run db:push            # Sync database schema
 npm run db:studio          # Open Prisma Studio visual editor  
-npm run db:seed            # Seed with 68 cards from checklist
+npm run db:seed            # Seed with 60 English cards from checklist
 
 # 🏗️ Build & Deploy
 npm run build              # Build for production

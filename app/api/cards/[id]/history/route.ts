@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { validatePrice, ValidationError } from '@/lib/validation';
 
 export async function GET(
   request: NextRequest,
@@ -30,6 +31,16 @@ export async function POST(
   try {
     const { id } = await params;
     const { price } = await request.json();
+
+    // Validate price input
+    try {
+      validatePrice(price);
+    } catch (err) {
+      if (err instanceof ValidationError) {
+        return NextResponse.json({ error: err.message }, { status: 400 });
+      }
+      throw err;
+    }
 
     const priceRecord = await prisma.priceHistory.create({
       data: {
