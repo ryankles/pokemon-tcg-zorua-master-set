@@ -241,8 +241,8 @@ export default function PortfolioPage() {
               >
                 <div className="bg-gradient-to-br from-purple-100 to-purple-50 rounded-lg overflow-hidden border border-purple-200 hover:border-purple-400 transition h-64 flex flex-col">
                   {/* Card Image */}
-                  <div className="flex-1 overflow-hidden bg-gray-100 relative">
-                    {card.imageUrl && (
+                  <div className="flex-1 overflow-hidden bg-gradient-to-br from-purple-400 to-indigo-600 relative flex items-center justify-center">
+                    {card.imageUrl ? (
                       <img
                         src={card.imageUrl}
                         alt={card.cardName}
@@ -252,7 +252,13 @@ export default function PortfolioPage() {
                           target.style.display = 'none';
                         }}
                       />
-                    )}
+                    ) : null}
+                    {/* Fallback - shown if image doesn't exist or fails */}
+                    <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-4 bg-gradient-to-br from-purple-500 to-indigo-700">
+                      <div className="text-4xl font-bold mb-2">🎴</div>
+                      <p className="text-center text-sm font-semibold">{card.cardName}</p>
+                      <p className="text-center text-xs opacity-75 mt-1">#{card.cardNumber}</p>
+                    </div>
                   </div>
                   
                   {/* Card Info */}

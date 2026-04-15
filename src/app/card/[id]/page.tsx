@@ -99,10 +99,10 @@ export default function CardDetailPage({
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Card Image */}
-        {card.imageUrl && (
-          <div className="lg:col-span-1">
-            <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200 sticky top-4">
-              <div className="relative w-full aspect-video bg-gradient-to-br from-purple-200 to-purple-100 rounded overflow-hidden">
+        <div className="lg:col-span-1">
+          <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200 sticky top-4">
+            <div className="relative w-full aspect-video bg-gradient-to-br from-purple-400 to-indigo-600 rounded overflow-hidden flex items-center justify-center">
+              {card.imageUrl && (
                 <img
                   src={card.imageUrl}
                   alt={card.cardName}
@@ -112,16 +112,22 @@ export default function CardDetailPage({
                     target.style.display = 'none';
                   }}
                 />
+              )}
+              {/* Fallback card placeholder */}
+              <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-4 bg-gradient-to-br from-purple-500 to-indigo-700">
+                <div className="text-6xl mb-4">🎴</div>
+                <p className="text-center font-bold text-lg">{card.cardName}</p>
+                <p className="text-center text-sm opacity-75 mt-2">{card.pokemon}</p>
               </div>
-              <p className="text-sm text-gray-600 text-center mt-4">
-                {card.setName} • {card.cardNumber}
-              </p>
             </div>
+            <p className="text-sm text-gray-600 text-center mt-4">
+              {card.setName} • {card.cardNumber}
+            </p>
           </div>
-        )}
+        </div>
         
         {/* Card Info */}
-        <div className={card.imageUrl ? 'lg:col-span-2' : 'lg:col-span-2'}>
+        <div className="lg:col-span-2">
           <div className="bg-white rounded-lg p-8 shadow-sm border border-gray-200">
             <div className="flex justify-between items-start mb-6">
               <div>
