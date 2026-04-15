@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import { Card } from '@prisma/client';
 import Link from 'next/link';
 import { formatCurrency, formatDate } from '@/lib/utils';
@@ -8,8 +8,9 @@ import { formatCurrency, formatDate } from '@/lib/utils';
 export default function CardDetailPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
+  const { id } = use(params);
   const [card, setCard] = useState<Card | null>(null);
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState(false);
@@ -24,7 +25,7 @@ export default function CardDetailPage({
   useEffect(() => {
     const fetchCard = async () => {
       try {
-        const response = await fetch(`/api/cards/${params.id}`);
+        const response = await fetch(`/api/cards/${id}`);
         const data = await response.json();
         setCard(data);
         setFormData({
@@ -42,7 +43,7 @@ export default function CardDetailPage({
     };
 
     fetchCard();
-  }, [params.id]);
+  }, [id]);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -57,7 +58,7 @@ export default function CardDetailPage({
 
   const handleSave = async () => {
     try {
-      const response = await fetch(`/api/cards/${params.id}`, {
+      const response = await fetch(`/api/cards/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
