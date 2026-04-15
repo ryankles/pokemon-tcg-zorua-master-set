@@ -13,12 +13,10 @@ interface CardData {
 
 // Generate card image URL using Pokemon TCG official imagery
 function getCardImageUrl(setName: string, cardNumber: string, pokemonName: string): string {
-  // Try to use official Pokemon TCG card images
-  // Format: https://images.pokemontcg.io/setid/cardnumber.png
-  
-  // Map set names to set IDs (common ones)
+  // Map set names to set IDs with comprehensive coverage
   const setIdMap: { [key: string]: string } = {
     'Black & White': 'bw1',
+    'McDonald\'s Promos 2011': 'mcdonald-2011',
     'Emerging Powers': 'bw3',
     'Dark Explorers': 'bw4',
     'Dragons Exalted': 'bw5',
@@ -46,28 +44,39 @@ function getCardImageUrl(setName: string, cardNumber: string, pokemonName: strin
     'Lost Thunder': 'sm8',
     'Team Up': 'sm9',
     'Unbroken Bonds': 'sm10',
-    'Shining Fates': 'ss2pt',
+    'Hidden Fates': 'sm115',
+    'Shining Fates': 'ss25',
     'Sword & Shield': 'ss1',
     'Rebel Clash': 'ss2',
     'Darkness Ablaze': 'ss3',
     'Vivid Voltage': 'ss4',
-    'Shining Fates': 'ss25',
     'Battle Styles': 'ss5',
     'Chilling Reign': 'ss6',
     'Evolving Skies': 'ss7',
     'Fusion Strike': 'ss8',
-    'Brilliant Stars': 'sv1',
+    'Lost Origin': 'sv04pt',
     'Scarlet & Violet': 'sv1',
+    'Scarlet & Violet: 151': 'sv4pt',
     'Paldean Fates': 'sv45pt',
+    'SWSH Promo': 'swsh-promo',
   };
   
-  // Extract set ID or use generic fallback
-  const setId = setIdMap[setName] || setName.toLowerCase().replace(/\s+/g, '-');
+  // Extract set ID - use mapped value or convert to lowercase with fallback
+  let setId = setIdMap[setName];
+  if (!setId) {
+    // For unmapped sets, try common patterns
+    setId = setName
+      .toLowerCase()
+      .replace(/[^\w\s-]/g, '') // Remove special chars
+      .replace(/\s+/g, '-')
+      .substring(0, 20); // Limit length
+  }
   
   // Extract card number (just the first part before slash)
   const cardNum = cardNumber.split('/')[0].trim();
   
   // Use official Pokemon TCG image API
+  // Format: https://images.pokemontcg.io/{setId}/{cardNumber}.png
   return `https://images.pokemontcg.io/${setId}/${cardNum}.png`;
 }
 
