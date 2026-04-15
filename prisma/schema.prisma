@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Card {
+  id               String   @id @default(cuid())
+  pokemon          String
+  cardName         String
+  setName          String
+  cardNumber       String   @unique
+
+  imageUrl         String?
+  owned            Boolean  @default(false)
+  favorite         Boolean  @default(false)
+  wishlistPriority Int?
+
+  purchasePrice    Float?
+  currentPrice     Float?
+  condition        String?  @default("Near Mint")
+  acquiredDate     DateTime?
+  notes            String?
+
+  priceHistory     PriceHistory[]
+
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@unique([pokemon, setName, cardNumber])
+  @@index([pokemon])
+  @@index([setName])
+  @@index([owned])
+  @@index([favorite])
+}
+
+model PriceHistory {
+  id        String   @id @default(cuid())
+  cardId    String
+  price     Float
+  recordedAt DateTime @default(now())
+
+  card      Card     @relation(fields: [cardId], references: [id], onDelete: Cascade)
+
+  @@index([cardId])
+}
